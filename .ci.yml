@@ -18,12 +18,3 @@ build:
   artifacts:
     paths:
       - build/zephyr/zephyr*
-  
-package-artifacts:
-  stage: package-artifacts
-  dependencies: [build]
-  script:
-    - mv  build/zephyr/*.elf .
-  artifacts:
-    paths:
-      - ./*.elf

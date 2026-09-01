@@ -12,9 +12,11 @@ variables:
 build:
   stage: build
   script:
-    - west init -l .
+    - west init -l espi-debugger
     - west update
-    - west build -b mec172xevb_assy6906 espi-debugger
+    - west zephyr-export
+    - west build -p always -b mec172xevb_assy6906 espi-debugger
+
   artifacts:
     paths:
       - build/zephyr/zephyr*

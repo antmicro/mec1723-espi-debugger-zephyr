@@ -14,8 +14,7 @@ build:
   script:
     - west init -l .
     - west update
-    - west patch apply
-    - west build -b mec172xevb_assy6906
+    - west build -b mec172xevb_assy6906 espi-debugger
   artifacts:
     paths:
       - build/zephyr/zephyr*

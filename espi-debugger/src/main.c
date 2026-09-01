@@ -43,9 +43,8 @@ static void periph_handler(const struct device *dev, struct espi_callback *cb,
 	case ESPI_PERIPHERAL_DEBUG_PORT80:
 		LOG_INF("Postcode %x", event.evt_data);
 		break;
-	case ESPI_PERIPHERAL_HOST_IO:
-		LOG_INF("ACPI %x", event.evt_data);
-		espi_remove_callback(espi_dev, &p80_cb);
+	case ESPI_PERIPHERAL_UART:
+		LOG_INF("Uart: %x", event.evt_data);
 		break;
 	default:
 		LOG_INF("%s periph 0x%x [%x]", __func__, periph_type, event.evt_data);
@@ -54,8 +53,7 @@ static void periph_handler(const struct device *dev, struct espi_callback *cb,
 
 
 int espi_init(void)
-{
-	
+{	
 	int ret;
 	/* Indicate to eSPI controller (host) simplest configuration: Single line,
 	 * 20MHz frequency and only logical channel 0 and 1 are supported
@@ -63,7 +61,7 @@ int espi_init(void)
 
 	struct espi_cfg cfg = {
 		.io_caps = ESPI_IO_MODE_SINGLE_LINE,
-		.channel_caps = ESPI_CHANNEL_VWIRE | ESPI_CHANNEL_PERIPHERAL,
+		.channel_caps = ESPI_CHANNEL_PERIPHERAL,
 		.max_freq = ESPI_FREQ_20MHZ,
 	};
 
@@ -102,13 +100,6 @@ int main(void)
 
 	espi_init();
 
-	/* Cleanup 
-	k_sleep(K_SECONDS(1));
-	espi_remove_callback(espi_dev, &espi_bus_cb);
-	espi_remove_callback(espi_dev, &vw_rdy_cb);
-	espi_remove_callback(espi_dev, &vw_cb);
-	LOG_INF("eSPI sample completed err: %d", ret);
-	*/
 
 	return 0;
 }

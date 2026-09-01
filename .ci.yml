@@ -18,3 +18,4 @@ build:
   artifacts:
     paths:
       - build/zephyr/zephyr*
+      - build/zephyr/*.bin

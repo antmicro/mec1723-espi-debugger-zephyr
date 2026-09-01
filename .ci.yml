@@ -13,6 +13,9 @@ build:
     - west init -l espi-debugger
     - west update
     - west zephyr-export
+    - git clone --depth 1 https://github.com/MicrochipTech/CPGZephyrDocs.git
+    - cp CPGZephyrDocs/MEC172x/SPI_image_gen/mec172x_spi_gen_lin_x86_64 .
+    - export MEC172X_SPI_GEN=$PWD/mec172x_spi_gen_lin_x86_64
     - west build -p always -b mec172xevb_assy6906 espi-debugger
 
   artifacts:

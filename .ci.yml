@@ -1,0 +1,30 @@
+image: ghcr.io/zephyrproject-rtos/ci:v0.29.3
+stages:
+  - build
+  - package-artifacts
+
+variables:
+  SCALENODE_RAM: 4096
+  SCALENODE_DISK: 10
+  DEBIAN_FRONTEND: noninteractive
+  ZEPHYR_SDK_INSTALL_DIR: /opt/toolchains
+
+build:
+  stage: build
+  script:
+    - west init -l .
+    - west update
+    - west patch apply
+    - west build -b mec172xevb_assy6906
+  artifacts:
+    paths:
+      - build/zephyr/zephyr*
+  
+package-artifacts:
+  stage: package-artifacts
+  dependencies: [build]
+  script:
+    - mv  build/zephyr/*.elf .
+  artifacts:
+    paths:
+      - ./*.elf

@@ -4,9 +4,32 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/logging/log_ctrl.h>
+#include <drivers/auxdisplay.h>
+
 LOG_MODULE_REGISTER(espi_debugger,LOG_LEVEL_DBG);
 
+const struct device *auxdisplay_h =	DEVICE_DT_GET(DT_NODELABEL(auxdisplay_h));
+
+const struct device *auxdisplay_l =	DEVICE_DT_GET(DT_NODELABEL(auxdisplay_l));
+
 static const struct device *const espi_dev = DEVICE_DT_GET(DT_NODELABEL(espi0));
+
+static struct espi_callback p80_cb;
+
+static void p80(const struct device *dev,struct espi_callback *cb,struct espi_event e)
+{
+    if ((e.evt_details & 0xffff) == ESPI_PERIPHERAL_DEBUG_PORT80) {
+        printk("POST: %02x\n", (uint8_t)e.evt_data);
+		
+		uint8_t p80_code = (uint8_t)e.evt_data;
+
+		uint8_t high = (e.evt_data >> 4) & 0x0F;
+		uint8_t low = e.evt_data & 0x0F;
+
+		auxdisplay_write(auxdisplay_h, &high, 1);
+		auxdisplay_write(auxdisplay_l, &low, 1);
+    }
+}
 
 int main(void)
 {
@@ -28,6 +51,23 @@ int main(void)
 		return -ENODEV;
 	}
 
+	if (!device_is_ready(auxdisplay_h) || !device_is_ready(auxdisplay_l)) {
+		LOG_ERR("Failed to 7seg display");
+		return 0;
+	}
+
+	int rc = auxdisplay_cursor_set_enabled(auxdisplay_h, true);
+
+	if (rc != 0) {
+		LOG_ERR("Failed to enable cursor on %s: %d",auxdisplay_h->name, rc);
+	}
+
+	rc = auxdisplay_cursor_set_enabled(auxdisplay_l, true);
+
+	if (rc != 0) {
+		LOG_ERR("Failed to enable cursor on %s: %d",auxdisplay_l->name, rc);
+	}
+
 	int ret = espi_config(espi_dev, &cfg);
 	if (ret != 0) {
 		LOG_ERR("Failed to configure eSPI target channels:%x err: %d", cfg.channel_caps, ret);
@@ -36,6 +76,9 @@ int main(void)
 	} else {
 		LOG_INF("eSPI target configured successfully!");
 	}
+
+	espi_init_callback(&p80_cb, p80, ESPI_BUS_PERIPHERAL_NOTIFICATION);
+	espi_add_callback(espi_dev, &p80_cb);
 
 	/*
 	 * Nothing copies UART bytes in software. When the host enables the eSPI

@@ -7,3 +7,7 @@ target_sources(app PRIVATE
     src/main.c
     drivers/auxdisplay_gpio_7seg.c
 )
+
+target_include_directories(app PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

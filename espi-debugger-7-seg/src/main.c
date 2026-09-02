@@ -52,7 +52,7 @@ int main(void)
 	}
 
 	if (!device_is_ready(auxdisplay_h) || !device_is_ready(auxdisplay_l)) {
-		LOG_ERR("Failed to 7seg display");
+		LOG_ERR("Failed to init 7seg display");
 		return 0;
 	}
 

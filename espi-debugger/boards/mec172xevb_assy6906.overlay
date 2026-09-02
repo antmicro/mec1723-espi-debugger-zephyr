@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr/dt-bindings/gpio/gpio.h>
-#include <zephyr/dt-bindings/gpio/microchip-xec-gpio.h>
 
 / {
 	chosen {
@@ -19,50 +17,6 @@
 		pwrg-gpios = <&gpio_000_036 10 GPIO_ACTIVE_HIGH>;
 		/* MCHP_GPIO_0054 */
 		rsm-gpios = <&gpio_040_076 12 GPIO_ACTIVE_HIGH>;
-	};
-
-	auxdisplay_h: digi-display-h {
-		compatible = "gpio-7-segment";
-		status = "okay";
-		columns = <1>;
-		rows = <1>;
-
-		segment-gpios =
-			<MCHP_GPIO_DECODE_012 GPIO_ACTIVE_LOW>, /* A */
-			<MCHP_GPIO_DECODE_024 GPIO_ACTIVE_LOW>, /* B */
-			<MCHP_GPIO_DECODE_051 GPIO_ACTIVE_LOW>, /* C */
-			<MCHP_GPIO_DECODE_033 GPIO_ACTIVE_LOW>, /* D */
-			<MCHP_GPIO_DECODE_050 GPIO_ACTIVE_LOW>, /* E */
-			<MCHP_GPIO_DECODE_106 GPIO_ACTIVE_LOW>, /* F */
-			<MCHP_GPIO_DECODE_062 GPIO_ACTIVE_LOW>, /* G */
-			<MCHP_GPIO_DECODE_023 GPIO_ACTIVE_LOW>; /* DP */
-
-		digit-gpios =
-			<MCHP_GPIO_DECODE_141 GPIO_ACTIVE_LOW>;
-
-		refresh-period-ms = <1>;
-	};
-
-	auxdisplay_l: digi-display-l {
-		compatible = "gpio-7-segment";
-		status = "okay";
-		columns = <1>;
-		rows = <1>;
-
-		segment-gpios =
-			<MCHP_GPIO_DECODE_067 GPIO_ACTIVE_LOW>, /* A */
-			<MCHP_GPIO_DECODE_206 GPIO_ACTIVE_LOW>, /* B */
-			<MCHP_GPIO_DECODE_202 GPIO_ACTIVE_LOW>, /* C */
-			<MCHP_GPIO_DECODE_205 GPIO_ACTIVE_LOW>, /* D */
-			<MCHP_GPIO_DECODE_203 GPIO_ACTIVE_LOW>, /* E */
-			<MCHP_GPIO_DECODE_204 GPIO_ACTIVE_LOW>, /* F */
-			<MCHP_GPIO_DECODE_201 GPIO_ACTIVE_LOW>, /* G */
-			<MCHP_GPIO_DECODE_200 GPIO_ACTIVE_LOW>; /* DP */
-
-		digit-gpios =
-			<MCHP_GPIO_DECODE_222 GPIO_ACTIVE_LOW>;
-
-		refresh-period-ms = <1>;
 	};
 };
 

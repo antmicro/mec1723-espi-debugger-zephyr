@@ -1,0 +1,18 @@
+manifest:
+  version: "1.2"
+
+  remotes:
+    - name: zephyrproject
+      url-base: https://github.com/zephyrproject-rtos
+
+  projects:
+    - name: zephyr
+      remote: zephyrproject
+      revision: v4.4.0
+      import:
+        name-allowlist:
+          - cmsis_6
+          - hal_microchip
+
+  self:
+    path: app

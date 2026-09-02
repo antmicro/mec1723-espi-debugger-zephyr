@@ -9,15 +9,15 @@ variables:
 
 build:
   stage: build
+  parallel: [espi-debugger,espi-debugger-7-seg]
   script:
-    - west init -l espi-debugger
+    - west init -l ${CI_PARALLEL_NAME}
     - west update
     - west zephyr-export
     - git clone --depth 1 https://github.com/MicrochipTech/CPGZephyrDocs.git
     - cp CPGZephyrDocs/MEC172x/SPI_image_gen/mec172x_spi_gen_lin_x86_64 .
     - export MEC172X_SPI_GEN=$PWD/mec172x_spi_gen_lin_x86_64
-    - west build -p always -b mec172xevb_assy6906 espi-debugger
-
+    - west build -p always -b mec172xevb_assy6906 ${CI_PARALLEL_NAME}
   artifacts:
     paths:
       - build/zephyr/zephyr*

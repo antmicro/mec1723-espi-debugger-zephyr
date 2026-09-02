@@ -10,9 +10,8 @@ static const struct device *const espi_dev = DEVICE_DT_GET(DT_NODELABEL(espi0));
 
 int main(void)
 {
-	#ifdef CONFIG_LOG
+	
 	LOG_INF("Hello from Main()\n");
-	#endif
 
 	/* Indicate to eSPI controller (host) simplest configuration: Single line,
 	 * 20MHz frequency and only logical channel 0 and 1 are supported
@@ -25,22 +24,17 @@ int main(void)
 
 	/*Init eSPI device*/
 	if (!device_is_ready(espi_dev)) {
-		#ifdef CONFIG_LOG
 		LOG_ERR("%s: eSPI device not ready.", espi_dev->name);
-		#endif
 		return -ENODEV;
 	}
 
 	int ret = espi_config(espi_dev, &cfg);
 	if (ret != 0) {
-		#ifdef CONFIG_LOG
 		LOG_ERR("Failed to configure eSPI target channels:%x err: %d", cfg.channel_caps, ret);
-		#endif
+	
 		return ret;
 	} else {
-		#ifdef CONFIG_LOG
 		LOG_INF("eSPI target configured successfully!");
-		#endif
 	}
 
 	/*

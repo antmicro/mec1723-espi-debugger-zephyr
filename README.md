@@ -1,5 +1,9 @@
 # MEC1723 eSPI Zephyr debugger
 
+Copyright (c) 2026 [Antmicro](https://www.antmicro.com)
+
+## Overview
+
 This repository contains software source codes for Zephyr application targeting the Microchip MEC1723 / MEC172xEVB and demonstrating eSPI peripheral functionality.
 
 ## Features
@@ -11,7 +15,7 @@ This repository contains software source codes for Zephyr application targeting 
   * POST code display on two 7-segment displays
 
 
-## Building
+## Building the application
 
 ### Initialize the workspace
 

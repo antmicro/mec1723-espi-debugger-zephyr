@@ -19,12 +19,13 @@ static struct espi_callback p80_cb;
 static void p80(const struct device *dev,struct espi_callback *cb,struct espi_event e)
 {
     if ((e.evt_details & 0xffff) == ESPI_PERIPHERAL_DEBUG_PORT80) {
-        printk("POST: %02x\n", (uint8_t)e.evt_data);
-		
+        
 		uint8_t p80_code = (uint8_t)e.evt_data;
 
 		uint8_t high = (e.evt_data >> 4) & 0x0F;
 		uint8_t low = e.evt_data & 0x0F;
+
+		printk("POST: %1x%1x\n",high,low);
 
 		auxdisplay_write(auxdisplay_h, &high, 1);
 		auxdisplay_write(auxdisplay_l, &low, 1);
@@ -77,6 +78,11 @@ int main(void)
 		LOG_INF("eSPI target configured successfully!");
 	}
 
+	// Set 7seg to initial value of 0xFF
+	auxdisplay_write(auxdisplay_h, (const uint8_t[]){0xF}, 1);
+	auxdisplay_write(auxdisplay_l, (const uint8_t[]){0xF}, 1);
+	
+	// Create P80 callback to display it onto 7seg display
 	espi_init_callback(&p80_cb, p80, ESPI_BUS_PERIPHERAL_NOTIFICATION);
 	espi_add_callback(espi_dev, &p80_cb);
 

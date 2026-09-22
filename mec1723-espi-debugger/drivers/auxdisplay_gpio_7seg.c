@@ -151,7 +151,7 @@ static int auxdisplay_gpio_7seg_write(const struct device *dev, const uint8_t *c
 
 	for (i = 0; i < len; i++) {
 		cursor = data->cursor_y * cfg->capabilities.columns + data->cursor_x;
-		LOG_DBG("auxdisplay_gpio_7seg_write: %s",ch);
+		LOG_DBG("auxdisplay_gpio_7seg_write- Display:%u at position %u\n", ch, i);
 		/*
 		 * Special case where the decimal point should be added to the
 		 * previous digit

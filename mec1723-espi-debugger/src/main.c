@@ -68,15 +68,6 @@ int main(void)
 		LOG_ERR("Failed to enable cursor on %s: %d",auxdisplay_l->name, rc);
 	}
 
-	// Sweep 7seg to verify the displays
-	static const uint8_t digits[] = "0123456789ABCDEF";
-
-    for (size_t i = 0; i < sizeof(digits) - 1; i++) {
-		auxdisplay_write(auxdisplay_h, &digits[i], 1);
-		auxdisplay_write(auxdisplay_l, &digits[i], 1);
-      	k_msleep(125);
-    }
-
 	auxdisplay_clear(auxdisplay_h);
 	auxdisplay_clear(auxdisplay_l);
 

@@ -88,11 +88,11 @@ int main(void)
 	}
 
 	// Set 7seg to initial value of 0xFF
-	LOG_INF("set init 7seg to 0x77");
+	LOG_INF("set init 7seg to 0xFF");
 	auxdisplay_clear(auxdisplay_h);
 	auxdisplay_clear(auxdisplay_l);
-	auxdisplay_write(auxdisplay_h, (const uint8_t *)"7", 1);
-	auxdisplay_write(auxdisplay_l, (const uint8_t *)"7", 1);
+	auxdisplay_write(auxdisplay_h, (const uint8_t *)"F", 1);
+	auxdisplay_write(auxdisplay_l, (const uint8_t *)"F", 1);
 	
 	// Create P80 callback to display it onto 7seg display
 	espi_init_callback(&p80_cb, p80, ESPI_BUS_PERIPHERAL_NOTIFICATION);

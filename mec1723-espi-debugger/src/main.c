@@ -25,11 +25,13 @@ static void p80(const struct device *dev,struct espi_callback *cb,struct espi_ev
 
 		uint8_t high = (e.evt_data >> 4) & 0x0F;
 		uint8_t low = e.evt_data & 0x0F;
-		printk("To-7-seg: %1x %1x\n",high,low);
+		LOG_DBG("To-7-seg: %1x %1x\n",high,low);
 
-		high = high + '0';
-		low = low + '0';
-		printk("To-7-seg-char: %1x %1x\n",high,low);
+		const char hex[] = "0123456789ABCDEF";
+		high = hex[high];
+		low = hex[low];
+
+		LOG_DBG("To-7-seg-char: %1x %1x\n",high,low);
 
 		auxdisplay_clear(auxdisplay_h);
 		auxdisplay_clear(auxdisplay_l);

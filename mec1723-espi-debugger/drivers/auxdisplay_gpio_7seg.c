@@ -14,7 +14,7 @@
 LOG_MODULE_REGISTER(auxdisplay_gpio_7seg, LOG_LEVEL_ERR);
 
 /*
-	 -- A --
+     -- A --
     |       |
     F       B
     |       |

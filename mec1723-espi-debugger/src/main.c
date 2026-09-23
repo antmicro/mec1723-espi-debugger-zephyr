@@ -25,13 +25,11 @@ static void p80(const struct device *dev,struct espi_callback *cb,struct espi_ev
 
 		uint8_t high = (e.evt_data >> 4) & 0x0F;
 		uint8_t low = e.evt_data & 0x0F;
-		LOG_DBG("To-7-seg: %1x %1x\n",high,low);
 
+		//Convert unsigned value to corresponding char
 		const char hex[] = "0123456789ABCDEF";
 		high = hex[high];
 		low = hex[low];
-
-		LOG_DBG("To-7-seg-char: %1x %1x\n",high,low);
 
 		auxdisplay_write(auxdisplay_h, &high, 1);
 		auxdisplay_write(auxdisplay_l, &low, 1);
@@ -51,6 +49,7 @@ int main(void)
 		.max_freq = 20,
 	};
 
+	/*Init 7seg device*/
 	if (!device_is_ready(auxdisplay_h) || !device_is_ready(auxdisplay_l)) {
 		LOG_ERR("Failed to init 7seg display");
 		return 0;

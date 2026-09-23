@@ -11,7 +11,7 @@
 #include <zephyr/drivers/gpio.h>
 
 #include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(auxdisplay_gpio_7seg, LOG_LEVEL_DBG);
+LOG_MODULE_REGISTER(auxdisplay_gpio_7seg, LOG_LEVEL_ERR);
 
 /*
 	 -- A --
@@ -151,7 +151,7 @@ static int auxdisplay_gpio_7seg_write(const struct device *dev, const uint8_t *c
 
 	for (i = 0; i < len; i++) {
 		cursor = data->cursor_y * cfg->capabilities.columns + data->cursor_x;
-		LOG_DBG("Display:%c at position %u\n", ch[i], i);
+		LOG_DBG("Display:%c at position %u of %s\n", ch[i], i, dev->name);
 		/*
 		 * Special case where the decimal point should be added to the
 		 * previous digit

@@ -9,7 +9,7 @@ variables:
 
 build:
   stage: build
-  parallel: [mec1723-evb,mec1723-espi-debugger]
+  parallel: [mec1723-espi-debugger]
   script:
     - west init -l ${CI_PARALLEL_NAME}
     - west update

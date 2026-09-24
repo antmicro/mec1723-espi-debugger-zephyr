@@ -132,3 +132,7 @@ sudo picocom -b 115200 /dev/ttyUSB0
 ### POST codes
 
 Port 80 POST codes received over eSPI are automatically displayed in hexadecimal on the D6 seven-segment display.
+
+## License
+
+This project is licensed under the [Apache-2.0](LICENSE) license.

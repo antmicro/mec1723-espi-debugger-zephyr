@@ -12,22 +12,40 @@ This repository contains software source code for a Zephyr application targeting
 * Captures `POST` codes written by the host to the 0x80 I/O port over eSPI.
 * Displays `POST` codes onto a dual seven-segment LED indicator.
 
+## Project structure
+
+The main directory contains LICENSE and a README.
+
+Zephyr project files are stored in the `mec1723-espi-debugger` directory.
+
 ## Getting started
 
 ### Initialize the workspace
 
 Before getting started, make sure you have a proper Zephyr development environment. Follow the official [Zephyr Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
+### Prerequisites
+
+The application was built and tested using the following versions:
+
+* Zephyr version: `4.4.0`
+* Toolchain version: `Zephyr 1.0.1`
+
 ### Microchip's SPI image generator
 
-[Microchip's SPI image generator](https://github.com/MicrochipTech/CPGZephyrDocs/tree/main/MEC172x/SPI_image_gen) is required to generate an SPI image for the `MEC1723`.
+[Microchip's MEC172x SPI Image Gen 5 ](https://github.com/MicrochipTech/CPGZephyrDocs/tree/main) is required to generate an SPI image for the `MEC1723`.
 
-Clone the [MEC172x SPI Image Gen 5](https://github.com/MicrochipTech/CPGZephyrDocs/tree/main) repository.
-
-Make image generation available for Zephyr by making the tool searchable by path, or by setting an `MEC172X_SPI_GEN` environment variable:
+Clone the MEC172x SPI Image Gen 5 repository:
 
 ```
-export MEC172X_SPI_GEN=<path to tool>/mec172x_spi_gen_lin_x86_64
+git clone --depth 1 https://github.com/MicrochipTech/CPGZephyrDocs.git
+```
+Image generator will be in `MEC172x/SPI_image_gen` directory.
+
+Make it available for Zephyr by making the image generator searchable by path, or by setting an `MEC172X_SPI_GEN` environment variable:
+
+```
+export MEC172X_SPI_GEN=<cloned repository path>/MEC172x/SPI_image_gen/mec172x_spi_gen_lin_x86_64
 ```
 
 ### West workspace initialization
@@ -75,7 +93,7 @@ meson install -C builddir
 
 Verify the installation:
 ```
-./flashrom -L | grep ft2232_spi
+flashrom -L | grep ft2232_spi
 ```
 
 ### Padding the SPI image
@@ -83,11 +101,11 @@ Verify the installation:
 For the flashrom to properly flash the image, the unused space must be filled with zeroes:
 
 ```
-cp <spi-image-name>.bin full_image.bin
+cp <build/zephyr/>spi_image.bin full_image.bin
 truncate -s 64M full_image.bin
 ```
 
-### Flashing
+### Writing the SPI image
 
 Run:
 
@@ -133,7 +151,7 @@ sudo picocom -b 115200 /dev/ttyUSB0
 
 ### POST codes
 
-Port 80 POST codes received over eSPI are automatically displayed in hexadecimal on the D6 seven-segment display.
+Port 80 POST codes received over eSPI are automatically displayed in hexadecimal on the seven-segment LED indicator.
 
 ## License
 

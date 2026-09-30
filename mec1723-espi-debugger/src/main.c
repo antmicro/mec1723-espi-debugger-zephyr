@@ -21,7 +21,7 @@ static void p80(const struct device *dev, struct espi_callback *cb,
   if ((e.evt_details & 0xffff) == ESPI_PERIPHERAL_DEBUG_PORT80) {
 
     uint8_t p80_code = (uint8_t)e.evt_data;
-    printk("POST: %02x\n", p80_code);
+    LOG_INF("POST: %02x\n", p80_code);
 
     uint8_t high = (e.evt_data >> 4) & 0x0F;
     uint8_t low = e.evt_data & 0x0F;
@@ -51,7 +51,7 @@ int main(void) {
   /*Init 7seg device*/
   if (!device_is_ready(auxdisplay_h) || !device_is_ready(auxdisplay_l)) {
     LOG_ERR("Failed to init 7seg display");
-    return 0;
+    return -ENODEV;
   }
 
   int rc = auxdisplay_cursor_set_enabled(auxdisplay_h, true);

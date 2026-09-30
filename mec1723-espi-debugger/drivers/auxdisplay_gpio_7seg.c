@@ -6,7 +6,7 @@
 #define DT_DRV_COMPAT gpio_7_segment
 
 #include <zephyr/device.h>
-#include <zephyr/drivers/auxdisplay.h>
+#include <drivers/auxdisplay.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
 

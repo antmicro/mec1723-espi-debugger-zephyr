@@ -1,4 +1,4 @@
-# MEC1723 eSPI Zephyr debugger
+# Zephyr application for MEC1723 eSPI debugger
 
 Copyright (c) 2026 [Antmicro](https://www.antmicro.com)
 

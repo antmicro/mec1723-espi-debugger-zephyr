@@ -4,7 +4,7 @@ Copyright (c) 2026 [Antmicro](https://www.antmicro.com)
 
 ## Overview
 
-This repository contains software source code for a Zephyr application targeting Antmicro’s open hardware [MEC1723 eSPI Debugger](https://github.com/antmicro/mec1723-espi-debugger).
+This repository contains a Zephyr application targeting Antmicro’s open hardware [MEC1723 eSPI Debugger](https://github.com/antmicro/mec1723-espi-debugger).
 
 ## Features
 
@@ -22,7 +22,8 @@ Zephyr project files are stored in the `mec1723-espi-debugger` directory.
 
 ### Initialize the workspace
 
-Before getting started, make sure you have a proper Zephyr development environment. Follow the official [Zephyr Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
+Before getting started, make sure you have a proper Zephyr development environment.
+Follow the official [Zephyr Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
 ### Prerequisites
 
@@ -31,9 +32,9 @@ The application was built and tested using the following versions:
 * Zephyr version: `4.4.0`
 * Toolchain version: `Zephyr 1.0.1`
 
-### Microchip's SPI image generator
+### Microchip SPI image generator
 
-[Microchip's MEC172x SPI Image Gen 5 ](https://github.com/MicrochipTech/CPGZephyrDocs/tree/main) is required to generate an SPI image for the `MEC1723`.
+[Microchip MEC172x SPI Image Gen 5 ](https://github.com/MicrochipTech/CPGZephyrDocs/tree/main) is required to generate an SPI image for the `MEC1723`.
 
 Clone the MEC172x SPI Image Gen 5 repository:
 
@@ -70,9 +71,9 @@ west build -p always -b mec172xevb_assy6906 mec1723-espi-debugger
 
 To program the app into the MCU's flash, use an external SPI programmer.
 
-We suggest using Antmicro's open hardware [Debug Toolkit](https://github.com/antmicro/ftdi-toolkit) connected to [MEC1723 eSPI Debugger's](https://github.com/antmicro/mec1723-espi-debugger) `J13` with [Tag-Connect TC2050-IDC-NL-050](https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2050-IDC-NL_Datasheet_8.pdf).
+We suggest using Antmicro open hardware [Debug Toolkit](https://github.com/antmicro/ftdi-toolkit) connected to `J13` port located on the MEC1723 eSPI Debugger with [Tag-Connect TC2050-IDC-NL-050](https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2050-IDC-NL_Datasheet_8.pdf).
 
-VCC and logic signals should be set to `1.8V`.
+VCC and logic signals used for flashing the MCU should be set to `1.8V`.
 
 ### Flashrom setup
 
